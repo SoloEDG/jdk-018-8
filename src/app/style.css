@@ -616,6 +616,254 @@ footer b {
     min-height: 540px;
   }
 }
+
+/* ---------- 批量工作队列 ---------- */
+.queue-panel {
+  background: #17191d;
+}
+.queue-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 16px 10px;
+  border: 1px dashed #444a42;
+  border-radius: 6px;
+  background: #1e211f;
+  cursor: pointer;
+  color: #c7db9a;
+  transition: border-color 0.15s, background 0.15s;
+}
+.queue-drop.active,
+.queue-drop:hover {
+  border-color: #b6cf7b;
+  background: #242a20;
+}
+.queue-drop strong {
+  font-weight: 500;
+  font-size: 12px;
+  color: #e4e7df;
+}
+.queue-drop small {
+  font-size: 9px;
+  color: #7c817c;
+  text-align: center;
+}
+.queue-drop input {
+  display: none;
+}
+.queue-upload {
+  margin-top: 9px;
+  height: auto;
+  padding: 13px 10px;
+}
+.mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 14px;
+}
+.mode-switch button {
+  background: #22242a;
+  border: 1px solid #363a41;
+  color: #9aa09b;
+  border-radius: 5px;
+  padding: 8px 6px;
+  font-size: 10px;
+}
+.mode-switch button.active {
+  background: #30352b;
+  border-color: #7e955a;
+  color: #d5e99f;
+}
+.mode-hint {
+  margin: 8px 0 0;
+  font-size: 9px;
+  line-height: 1.6;
+  color: #777d77;
+}
+.concurrency-field {
+  margin-top: 14px;
+}
+.queue-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+}
+.queue-actions .primary,
+.queue-actions .secondary {
+  width: 100%;
+}
+.queue-start,
+.queue-cancel {
+  padding: 10px;
+}
+.reapply-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+button.small {
+  padding: 8px 9px;
+  font-size: 10px;
+}
+.queue-progress {
+  margin-top: 14px;
+}
+.queue-progress .bar {
+  height: 4px;
+  border-radius: 4px;
+  background: #2a2d33;
+  overflow: hidden;
+}
+.queue-progress .bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #9db86a, #d4eb98);
+  transition: width 0.25s ease;
+}
+.progress-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 7px;
+  font-size: 9px;
+  color: #8b9089;
+}
+.progress-meta .warn {
+  color: #e0a06f;
+}
+.queue-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  scrollbar-width: thin;
+  scrollbar-color: #3d4337 #15171b;
+}
+.queue-item {
+  border: 1px solid #2c2f35;
+  border-radius: 6px;
+  padding: 9px 10px;
+  background: #1c1e23;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.queue-item:hover {
+  border-color: #4a5140;
+}
+.queue-item.selected {
+  border-color: #9db86a;
+  box-shadow: 0 0 0 1px #9db86a55;
+}
+.queue-item.is-error {
+  border-color: #7a4a38;
+}
+.queue-item.is-canceled {
+  opacity: 0.65;
+}
+.queue-item.stale .item-name::after {
+  content: " ●";
+  color: #e0a06f;
+}
+.item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.item-name {
+  font-size: 11px;
+  color: #d8dbd4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item-status {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-family: "DM Mono", monospace;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: #2a2d33;
+  color: #9aa09b;
+}
+.item-status[data-status="done"] {
+  background: #2c3a23;
+  color: #b9d787;
+}
+.item-status[data-status="decoding"],
+.item-status[data-status="rendering"] {
+  background: #33352a;
+  color: #e0d79a;
+}
+.item-status[data-status="error"] {
+  background: #43281e;
+  color: #ecad82;
+}
+.item-status[data-status="canceled"] {
+  background: #2a2d33;
+  color: #7d828a;
+}
+.item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 5px;
+  font-size: 9px;
+  color: #71767d;
+}
+.item-meta .warn {
+  color: #e0a06f;
+}
+.item-error {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 9px;
+  color: #ecad82;
+}
+.item-buttons {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+button.mini {
+  background: #26292f;
+  border: 1px solid #383c43;
+  color: #b3b9b0;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 9px;
+  gap: 4px;
+}
+button.mini:hover {
+  background: #30342b;
+  border-color: #5c6b48;
+}
+button.mini.danger:hover {
+  border-color: #8a4a3c;
+  color: #e8a48e;
+}
+.queue-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 13px;
+}
+.queue-footer button {
+  flex: 1;
+}
+.bundle-btn {
+  gap: 7px;
+}
 @media (max-width: 1050px) {
   .app {
     padding: 0 22px;

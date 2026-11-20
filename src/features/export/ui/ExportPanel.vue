@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { Download, Copy, ArrowUpRight } from "lucide-vue-next";
+import { Download, Copy, ArrowUpRight, Package } from "lucide-vue-next";
 import { useExport } from "../model/useExport";
+import { useStudio } from "../../../shared/useStudio";
 const e = useExport();
+const { queue, queueState } = useStudio();
 </script>
 <template>
   <section class="export-bar">
     <div>
       <span class="eyebrow">READY TO SHARE</span>
       <h3>带走你的字符作品</h3>
-      <small>文本保留完整字符布局，PNG 保留当前配色。</small>
+      <small
+        >文本保留完整字符布局，PNG 保留配色；队列汇总包内清单指向每项实际完成版本。</small
+      >
     </div>
     <div class="export-actions">
       <button class="secondary" :disabled="!e.ready()" @click="e.copy">
@@ -17,6 +21,18 @@ const e = useExport();
         PNG <ArrowUpRight :size="15" /></button
       ><button class="primary" :disabled="!e.ready()" @click="e.saveText">
         <Download :size="16" /> 导出 .TXT
+      </button>
+      <button
+        class="primary bundle-btn"
+        :disabled="!queue.stats.value.done || queueState.exporting"
+        @click="queue.downloadAll"
+      >
+        <Package :size="16" />
+        {{
+          queueState.exporting
+            ? "打包中…"
+            : `汇总下载 ZIP（${queue.stats.value.done} 套）`
+        }}
       </button>
     </div>
   </section>
